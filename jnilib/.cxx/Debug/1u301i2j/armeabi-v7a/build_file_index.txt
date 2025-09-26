@@ -1,1 +1,0 @@
-E:\Documents\GitHub\android-serialport-api\SerialDemo\jnilib\src\main\jni\CMakeLists.txt
