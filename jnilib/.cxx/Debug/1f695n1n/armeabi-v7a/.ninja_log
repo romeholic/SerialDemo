@@ -1,0 +1,15 @@
+# ninja log v5
+1	446	7805715976125777	CMakeFiles/serial_port.dir/SerialPort.c.o	ae570e0d679b4586
+450	821	7805715979796272	E:/Documents/GitHub/android-serialport-api/SerialDemo/jnilib/build/intermediates/cxx/Debug/1f695n1n/obj/armeabi-v7a/libserial_port.so	675753a7fcb869a8
+0	7	0	clean	501bba97cf7faae4
+1	256	7805718491987966	CMakeFiles/serial_port.dir/SerialPort.c.o	ae570e0d679b4586
+256	565	7805718495077969	E:/Documents/GitHub/android-serialport-api/SerialDemo/jnilib/build/intermediates/cxx/Debug/1f695n1n/obj/armeabi-v7a/libserial_port.so	675753a7fcb869a8
+0	8	0	clean	501bba97cf7faae4
+2	145	7805718846119574	CMakeFiles/serial_port.dir/SerialPort.c.o	ae570e0d679b4586
+145	336	7805718848074438	E:/Documents/GitHub/android-serialport-api/SerialDemo/jnilib/build/intermediates/cxx/Debug/1f695n1n/obj/armeabi-v7a/libserial_port.so	675753a7fcb869a8
+1	115	7805730352930460	CMakeFiles/serial_port.dir/SerialPort.c.o	ae570e0d679b4586
+115	228	7805730354070459	E:/Documents/GitHub/android-serialport-api/SerialDemo/jnilib/build/intermediates/cxx/Debug/1f695n1n/obj/armeabi-v7a/libserial_port.so	675753a7fcb869a8
+0	16	0	clean	501bba97cf7faae4
+3	164	7805731188871090	CMakeFiles/serial_port.dir/SerialPort.c.o	ae570e0d679b4586
+165	357	7805731190851086	E:/Documents/GitHub/android-serialport-api/SerialDemo/jnilib/build/intermediates/cxx/Debug/1f695n1n/obj/armeabi-v7a/libserial_port.so	675753a7fcb869a8
+1	17	0	clean	501bba97cf7faae4

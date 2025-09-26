@@ -1,0 +1,1 @@
+E:\Documents\GitHub\SerialDemo\jnilib\src\main\jni\CMakeLists.txt

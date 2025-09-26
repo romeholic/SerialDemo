@@ -1,0 +1,3 @@
+# ninja log v5
+2	171	7805700474699361	CMakeFiles/serial_port.dir/SerialPort.c.o	810d50fb81187c75
+174	435	7805700477319375	E:/Documents/GitHub/android-serialport-api/SerialDemo/jnilib/build/intermediates/cxx/Debug/1u301i2j/obj/arm64-v8a/libserial_port.so	ab8f06bfe85ae178

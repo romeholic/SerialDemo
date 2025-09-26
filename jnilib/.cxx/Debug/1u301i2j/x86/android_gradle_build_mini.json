@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "E:\\Documents\\GitHub\\android-serialport-api\\SerialDemo\\jnilib\\src\\main\\jni\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\welo_stanley\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "E:\\Documents\\GitHub\\android-serialport-api\\SerialDemo\\jnilib\\.cxx\\Debug\\1u301i2j\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\welo_stanley\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "E:\\Documents\\GitHub\\android-serialport-api\\SerialDemo\\jnilib\\.cxx\\Debug\\1u301i2j\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "serial_port::@6890427a1f51a3e7e1df": {
+      "artifactName": "serial_port",
+      "abi": "x86",
+      "output": "E:\\Documents\\GitHub\\android-serialport-api\\SerialDemo\\jnilib\\build\\intermediates\\cxx\\Debug\\1u301i2j\\obj\\x86\\libserial_port.so",
+      "runtimeFiles": []
+    }
+  }
+}
