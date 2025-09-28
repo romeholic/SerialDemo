@@ -21,5 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "SerialDemo"
 include(":app")
-include(":jnilib")
+include(":serial-port-sdk")
  

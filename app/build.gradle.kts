@@ -44,7 +44,7 @@ android {
 
 dependencies {
     dependencies {
-        implementation(project(":jnilib"))
+        implementation(project(":serial-port-sdk"))
     }
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

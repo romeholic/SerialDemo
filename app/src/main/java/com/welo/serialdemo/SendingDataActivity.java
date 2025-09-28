@@ -102,27 +102,12 @@ public class SendingDataActivity extends SerialPortActivity {
 				if (mOutputStream == null || mStandardPacket == null) {
 					return;
 				}
-
-/*				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: 开始拉低引脚唤醒IC（" + WAKE_LOW_DELAY + "ms）");
-				mSerialPort.setRTS(true); // 拉低RTS（根据硬件定义，true可能表示低电平，需实际测试）
-				Thread.sleep(WAKE_LOW_DELAY); // 保持拉低2ms
-
-				// 拉高引脚（结束唤醒信号）
-				mSerialPort.setRTS(false); // 拉高RTS
-				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: 结束拉低，等待" + WAKE_INTERVAL + "ms");
-
-				// 间隔100ms后发送数据
-				Thread.sleep(WAKE_INTERVAL);*/
-
-
 				mOutputStream.write(mStandardPacket);
 				mOutputStream.flush();
 				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: send once succeed（" + mStandardPacket.length + "byte），content（hex）：" + bytesToHex(mStandardPacket));
 			} catch (IOException e) {
 				android.util.Log.e("WELO-SendingDataActivity", "SendingThread: send failed", e);
-			}/* catch (InterruptedException e) {
-				android.util.Log.e("WELO-SendingDataActivity", "SendingThread: sending thread interrupted", e);
-			}*/
+			}
 			android.util.Log.d("WELO-SendingDataActivity", "SendingThread: sending thread exit");
 		}
 
