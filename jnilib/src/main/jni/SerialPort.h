@@ -10,7 +10,7 @@ extern "C" {
  * Method:    open
  * Signature: (Ljava/lang/String;II)Ljava/io/FileDescriptor;
  */
-JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
+JNIEXPORT jobject JNICALL Java_com_welo_serialdemo_tools_SerialPort_open
   (JNIEnv *, jclass, jstring, jint, jint);
 
 /*
@@ -18,7 +18,7 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
  * Method:    close
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_android_1serialport_1api_SerialPort_close
+JNIEXPORT void JNICALL Java_com_welo_serialdemo_tools_SerialPort_close
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

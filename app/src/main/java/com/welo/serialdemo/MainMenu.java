@@ -13,7 +13,8 @@ public class MainMenu extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+		android.util.Log.d("WELO-MainMenu", "onCreate");
+		setContentView(R.layout.main);
 
         final Button buttonSetup = (Button)findViewById(R.id.ButtonSetup);
         buttonSetup.setOnClickListener(new View.OnClickListener() {

@@ -15,11 +15,14 @@ public class Application extends android.app.Application {
 	private SerialPort mSerialPort = null;
 
 	public SerialPort getSerialPort() throws SecurityException, IOException, InvalidParameterException {
+		android.util.Log.d("WELO-Application", "getSerialPort");
 		if (mSerialPort == null) {
 			/* Read serial port parameters */
 			SharedPreferences sp = getSharedPreferences("com_welo_serialdemo_preferences", MODE_PRIVATE);
 			String path = sp.getString("DEVICE", "");
 			int baudrate = Integer.decode(sp.getString("BAUDRATE", "-1"));
+
+			android.util.Log.d("WELO-Application", "create SerialPort. path=" + path + ", baudrate=" + baudrate);
 
 			/* Check parameters */
 			if ( (path.length() == 0) || (baudrate == -1)) {
@@ -33,6 +36,7 @@ public class Application extends android.app.Application {
 	}
 
 	public void closeSerialPort() {
+		android.util.Log.d("WELO-Application", "closeSerialPort");
 		if (mSerialPort != null) {
 			mSerialPort.close();
 			mSerialPort = null;

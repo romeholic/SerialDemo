@@ -25,6 +25,7 @@ public abstract class SerialPortActivity extends Activity {
 		@Override
 		public void run() {
 			super.run();
+			android.util.Log.d("WELO-SerialPortActivity", "ReadThread run");
 			while(!isInterrupted()) {
 				int size;
 				try {
@@ -57,6 +58,7 @@ public abstract class SerialPortActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		android.util.Log.d("WELO-SerialPortActivity", "onCreate");
 		mApplication = (Application) getApplication();
 		try {
 			mSerialPort = mApplication.getSerialPort();
@@ -67,10 +69,13 @@ public abstract class SerialPortActivity extends Activity {
 			mReadThread = new ReadThread();
 			mReadThread.start();
 		} catch (SecurityException e) {
+			e.printStackTrace();
 			DisplayError(R.string.error_security);
 		} catch (IOException e) {
+			e.printStackTrace();
 			DisplayError(R.string.error_unknown);
 		} catch (InvalidParameterException e) {
+			e.printStackTrace();
 			DisplayError(R.string.error_configuration);
 		}
 	}

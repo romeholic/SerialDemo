@@ -13,6 +13,7 @@ public class SendingDataActivity extends SerialPortActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		android.util.Log.d("WELO-SendingDataActivity", "onCreate");
 		setContentView(R.layout.sending_data);
 		mBuffer = new byte[1024];
 		Arrays.fill(mBuffer, (byte) 0x55);
@@ -30,6 +31,7 @@ public class SendingDataActivity extends SerialPortActivity {
 	private class SendingThread extends Thread {
 		@Override
 		public void run() {
+			android.util.Log.d("WELO-SendingDataActivity", "SendingThread run");
 			while (!isInterrupted()) {
 				try {
 					if (mOutputStream != null) {

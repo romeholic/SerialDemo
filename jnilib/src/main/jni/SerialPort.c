@@ -1,19 +1,3 @@
-/*
- * Copyright 2009-2011 Cedric Priscal
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #include <termios.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -69,11 +53,11 @@ static speed_t getBaudrate(jint baudrate)
 }
 
 /*
- * Class:     android_serialport_SerialPort
+ * Class:     com_welo_serialdemo_tools_SerialPort
  * Method:    open
  * Signature: (Ljava/lang/String;II)Ljava/io/FileDescriptor;
  */
-JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
+JNIEXPORT jobject JNICALL Java_com_welo_serialdemo_tools_SerialPort_open
   (JNIEnv *env, jclass thiz, jstring path, jint baudrate, jint flags)
 {
 	int fd;
@@ -145,11 +129,11 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
 }
 
 /*
- * Class:     cedric_serial_SerialPort
+ * Class:     com_welo_serialdemo_tools_SerialPort
  * Method:    close
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_android_1serialport_1api_SerialPort_close
+JNIEXPORT void JNICALL Java_com_welo_serialdemo_tools_SerialPort_close
   (JNIEnv *env, jobject thiz)
 {
 	jclass SerialPortClass = (*env)->GetObjectClass(env, thiz);
