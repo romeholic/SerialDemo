@@ -60,9 +60,22 @@ public class SerialPort {
 		return mFileOutputStream;
 	}
 
+	// enable = true → 拉低 RTS（唤醒 IC）
+	// enable = false → 拉高 RTS（结束唤醒）
+/*	public void setRTS(boolean enable) throws IOException {
+		if (mFd == null) {
+			throw new IOException("SerialPort is not open");
+		}
+		int result = setRTSNative(mFd, enable ? 1 : 0);
+		if (result != 0) {
+			throw new IOException("Failed to set RTS, error: " + result);
+		}
+	}*/
+
 	// JNI
 	private native static FileDescriptor open(String path, int baudrate, int flags);
 	public native void close();
+	/*private native static int setRTSNative(FileDescriptor fd, int enable);*/
 
 	static {
 		System.loadLibrary("serial_port");

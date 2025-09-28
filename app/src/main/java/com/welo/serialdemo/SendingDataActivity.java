@@ -5,17 +5,20 @@ import java.util.Arrays;
 import android.os.Bundle;
 
 public class SendingDataActivity extends SerialPortActivity {
-	SendingThread mSendingThread;
-
-	private byte[] mStandardPacket;
 	private final byte[] mStopPacket = new byte[]{
 			0x58,
 			0x59,
 			0x53,
 			0x00,
 			0x00,
-			0x5E
-	};;
+			0x04
+	};
+
+/*	private static final long WAKE_LOW_DELAY = 2;    // 拉低时长：2ms
+	private static final long WAKE_INTERVAL = 100;   // 唤醒后间隔：100ms*/
+
+    private byte[] mStandardPacket;
+	SendingThread mSendingThread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,6 @@ public class SendingDataActivity extends SerialPortActivity {
 
 	private void buildStopPacket() {
 		android.util.Log.d("WELO-SendingDataActivity", "buildStopPacket succeed: （" + mStopPacket.length + "byte）");
-		android.util.Log.d("WELO-SendingDataActivity", "StopPacket content（hex）：" + bytesToHex(mStopPacket));
 	}
 
 	private void buildStandardPacket() {
@@ -89,7 +91,6 @@ public class SendingDataActivity extends SerialPortActivity {
 		System.arraycopy(endByte, 0, mStandardPacket, startBytes.length + dataBytes.length, endByte.length);
 
 		android.util.Log.d("WELO-SendingDataActivity", "buildStandardPacket succeed: （" + mStandardPacket.length + "byte）");
-		android.util.Log.d("WELO-SendingDataActivity", "StandardPacket content（hex）：" + bytesToHex(mStandardPacket));
 	}
 
 	private class SendingThread extends Thread {
@@ -101,12 +102,27 @@ public class SendingDataActivity extends SerialPortActivity {
 				if (mOutputStream == null || mStandardPacket == null) {
 					return;
 				}
+
+/*				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: 开始拉低引脚唤醒IC（" + WAKE_LOW_DELAY + "ms）");
+				mSerialPort.setRTS(true); // 拉低RTS（根据硬件定义，true可能表示低电平，需实际测试）
+				Thread.sleep(WAKE_LOW_DELAY); // 保持拉低2ms
+
+				// 拉高引脚（结束唤醒信号）
+				mSerialPort.setRTS(false); // 拉高RTS
+				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: 结束拉低，等待" + WAKE_INTERVAL + "ms");
+
+				// 间隔100ms后发送数据
+				Thread.sleep(WAKE_INTERVAL);*/
+
+
 				mOutputStream.write(mStandardPacket);
 				mOutputStream.flush();
-				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: send once succeed（" + mStandardPacket.length + "byte）");
+				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: send once succeed（" + mStandardPacket.length + "byte），content（hex）：" + bytesToHex(mStandardPacket));
 			} catch (IOException e) {
 				android.util.Log.e("WELO-SendingDataActivity", "SendingThread: send failed", e);
-			}
+			}/* catch (InterruptedException e) {
+				android.util.Log.e("WELO-SendingDataActivity", "SendingThread: sending thread interrupted", e);
+			}*/
 			android.util.Log.d("WELO-SendingDataActivity", "SendingThread: sending thread exit");
 		}
 

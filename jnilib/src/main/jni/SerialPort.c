@@ -10,7 +10,6 @@
 
 #include "android/log.h"
 static const char *TAG="serial_port";
-#define LOGI(fmt, args...) __android_log_print(ANDROID_LOG_INFO,  TAG, fmt, ##args)
 #define LOGD(fmt, args...) __android_log_print(ANDROID_LOG_DEBUG, TAG, fmt, ##args)
 #define LOGE(fmt, args...) __android_log_print(ANDROID_LOG_ERROR, TAG, fmt, ##args)
 
@@ -149,3 +148,55 @@ JNIEXPORT void JNICALL Java_com_welo_serialdemo_tools_SerialPort_close
 	close(descriptor);
 }
 
+/*
+JNIEXPORT jint JNICALL Java_com_welo_serialdemo_tools_SerialPort_setRTSNative
+        (JNIEnv *env, jclass thiz, jobject fdObj, jint enable) {
+    // 获取文件描述符对应的类（C语言中需用 (*env)-> 调用JNI函数）
+    jclass cFileDescriptor = (*env)->FindClass(env, "java/io/FileDescriptor");
+    if (cFileDescriptor == NULL) {
+        LOGE("setRTSNative: 找不到 FileDescriptor 类");
+        return -1;
+    }
+
+    // 获取 descriptor 字段的 ID
+    jfieldID descriptorID = (*env)->GetFieldID(env, cFileDescriptor, "descriptor", "I");
+    if (descriptorID == NULL) {
+        LOGE("setRTSNative: 找不到 descriptor 字段");
+        (*env)->DeleteLocalRef(env, cFileDescriptor); // 释放局部引用
+        return -1;
+    }
+
+    // 获取文件描述符的值
+    int fd = (*env)->GetIntField(env, fdObj, descriptorID);
+    if (fd == -1) {
+        LOGE("setRTSNative: 无效的文件描述符");
+        (*env)->DeleteLocalRef(env, cFileDescriptor);
+        return -1;
+    }
+
+    // 读取当前引脚状态
+    int status;
+    if (ioctl(fd, TIOCMGET, &status) == -1) {
+        LOGE("setRTSNative: TIOCMGET 失败: %s", strerror(errno));
+        (*env)->DeleteLocalRef(env, cFileDescriptor);
+        return -1;
+    }
+
+    // 设置 RTS 状态（根据硬件调试结果确认是否需要反向操作）
+    if (enable) {
+        status |= TIOCM_RTS;  // 拉低 RTS（若无效，尝试改为 status &= ~TIOCM_RTS）
+    } else {
+        status &= ~TIOCM_RTS; // 拉高 RTS（若无效，尝试改为 status |= TIOCM_RTS）
+    }
+
+    // 应用新的引脚状态
+    if (ioctl(fd, TIOCMSET, &status) == -1) {
+        LOGE("setRTSNative: TIOCMSET 失败: %s", strerror(errno));
+        (*env)->DeleteLocalRef(env, cFileDescriptor);
+        return -1;
+    }
+
+    // 释放局部引用
+    (*env)->DeleteLocalRef(env, cFileDescriptor);
+    return 0; // 成功
+}*/
