@@ -67,6 +67,7 @@ public class LoopbackActivity extends SerialPortActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		android.util.Log.d("WELO-LoopbackActivity", "onCreate");
 		setContentView(R.layout.loopback);
 		mTextViewOutgoing = (TextView) findViewById(R.id.TextViewOutgoingValue);
 		mTextViewIncoming = (TextView) findViewById(R.id.TextViewIncomingValue);
@@ -80,7 +81,7 @@ public class LoopbackActivity extends SerialPortActivity {
 
 	@Override
 	protected void onDataReceived(byte[] buffer, int size) {
-
+		android.util.Log.d("WELO-LoopbackActivity", "onDataReceived. size=" + size);
 		synchronized (mByteReceivedBackSemaphore) {
 			int i;
 			for (i = 0; i < size; i++) {

@@ -15,6 +15,7 @@ public class ConsoleActivity extends SerialPortActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		android.util.Log.d("WELO-ConsoleActivity", "onCreate");
 		setContentView(R.layout.console);
 
 //		setTitle("Loopback test");
@@ -42,6 +43,7 @@ public class ConsoleActivity extends SerialPortActivity {
 
 	@Override
 	protected void onDataReceived(final byte[] buffer, final int size) {
+		android.util.Log.d("WELO-ConsoleActivity", "onDataReceived. size=" + size);
 		runOnUiThread(new Runnable() {
 			public void run() {
 				if (mReception != null) {
