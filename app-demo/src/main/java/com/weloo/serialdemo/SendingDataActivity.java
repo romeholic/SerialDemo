@@ -75,27 +75,28 @@ public class SendingDataActivity extends SerialPortActivity {
 		android.util.Log.d("WELO-SendingDataActivity", "buildStopPacket succeed: （" + mStopPacket.length + "byte）");
 	}
 
+	// https://www.metools.info/code/c128.html
 	private void buildStandardPacket() {
 		byte[] startBytes = new byte[]{0x58, 0x59, 0x52};
 
 		//023456
-		byte[] dataBytes = new byte[]{0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
-				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
-				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
-				(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
-				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
-				(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,
-				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
-				(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
-				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
-				(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,
-				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
-				0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,
-				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
-				0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
-				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
-				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00};
-
+		byte[] dataBytes = new byte[]{
+                0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+                0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+                0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
+                (byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
+                0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
+                (byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,
+                0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
+                (byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
+                0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
+                (byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,
+                0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
+                0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,
+                0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
+                0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
+                0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+                0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00};
 
 		//WELOO LOGO
 /*		// 第0行（左到右32列）
@@ -237,7 +238,8 @@ public class SendingDataActivity extends SerialPortActivity {
 		};
 
 		byte[] endByte = new byte[]{(byte)0xA9};
-		byte[] welooEndByte = new byte[]{(byte)0xD3};
+
+		byte[] welooEndByte = new byte[]{(byte)0xAA};
 
 		mStandardPacket = new byte[startBytes.length + welooBytes.length + welooEndByte.length];
 		System.arraycopy(startBytes, 0, mStandardPacket, 0, startBytes.length);
