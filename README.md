@@ -11,12 +11,10 @@ try {
     // 设置数据接收监听
     serialPort.setOnDataReceivedListener((buffer, size) -> {
         // 处理接收数据
-    });
-    
+    });    
     // 发送数据
     byte[] data = "test".getBytes();
-    serialPort.sendData(data);
-    
+    serialPort.sendData(data);    
     // 定时发送
     //serialPort.sendDataWithInterval(data, 1000); // 每隔1秒发送一次
 } catch (Exception e) {
