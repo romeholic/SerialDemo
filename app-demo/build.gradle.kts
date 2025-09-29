@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.welo.serialdemo"
+    namespace = "com.weloo.serialdemo"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.welo.serialdemo"
+        applicationId = "com.weloo.serialdemo"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -30,6 +32,16 @@ android {
             )
         }
     }
+
+    applicationVariants.all {
+        val variant = this
+        variant.outputs.forEach { output ->
+            val buildType = variant.buildType.name.lowercase()
+            val fileName = "weloo-serialport-test-v1.0.apk"
+            (output as BaseVariantOutputImpl).outputFileName = fileName
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

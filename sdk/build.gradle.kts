@@ -1,10 +1,11 @@
-// 必须使用 Android 库插件（通过它集成 NDK 和 CMake）
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+
 plugins {
     id("com.android.library")
 }
 
 android {
-    namespace = "com.welo.serialport.lib"
+    namespace = "com.weloo.serialport.lib"
     compileSdk = 33  // 替换为你的编译版本
 
     // 配置 NDK 版本（需与本地安装的一致）
@@ -24,6 +25,14 @@ android {
         }
     }
 
+    libraryVariants.all {
+        val variant = this
+        variant.outputs.forEach { output ->
+            val fileName = "weloo-serialport-sdk-v1.0.aar"
+            (output as BaseVariantOutputImpl).outputFileName = fileName
+        }
+    }
+
     // 配置 CMake 路径（指向你的 CMakeLists.txt）
     externalNativeBuild {
         cmake {
@@ -31,24 +40,4 @@ android {
             version = "3.22.1"  // 本地安装的 CMake 版本
         }
     }
-
-    // 禁用 AAR 打包（仅输出 SO 文件）
-/*    libraryVariants.all { variant ->
-        variant.outputs.all {
-            // 取消 AAR 生成任务
-            (this as com.android.build.gradle.internal.api.LibraryVariantOutputImpl).assembleProvider.get().enabled = false
-        }
-    }*/
-}
-
-// 可选：添加任务，复制 SO 到指定目录（方便主项目引用）
-tasks.register<Copy>("copySoToApp") {
-    // SO 源目录（编译后自动生成的路径）
-    from("${buildDir}/intermediates/cmake/debug/obj")
-    // 目标目录（主 App 的 jniLibs 目录，需手动创建）
-    into("${project.rootDir}/app/src/main/jniLibs")
-    // 仅复制 SO 文件
-    include("**/*.so")
-    // 执行时机：在编译 SO 之后
-    dependsOn("externalNativeBuildDebug")
 }

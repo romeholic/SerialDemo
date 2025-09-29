@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.welo.serialport.lib" />  <!-- 与build.gradle的namespace一致 -->
+<manifest package="com.weloo.serialport.lib" />  <!-- 与build.gradle的namespace一致 -->

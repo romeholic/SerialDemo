@@ -52,11 +52,11 @@ static speed_t getBaudrate(jint baudrate)
 }
 
 /*
- * Class:     com_welo_serialdemo_tools_SerialPort
+ * Class:     com_weloo_serialdemo_tools_SerialPort
  * Method:    open
  * Signature: (Ljava/lang/String;II)Ljava/io/FileDescriptor;
  */
-JNIEXPORT jobject JNICALL Java_com_welo_serialdemo_tools_SerialPort_open
+JNIEXPORT jobject JNICALL Java_com_weloo_serialdemo_tools_SerialPort_open
   (JNIEnv *env, jclass thiz, jstring path, jint baudrate, jint flags)
 {
 	int fd;
@@ -128,11 +128,11 @@ JNIEXPORT jobject JNICALL Java_com_welo_serialdemo_tools_SerialPort_open
 }
 
 /*
- * Class:     com_welo_serialdemo_tools_SerialPort
+ * Class:     com_weloo_serialdemo_tools_SerialPort
  * Method:    close
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_welo_serialdemo_tools_SerialPort_close
+JNIEXPORT void JNICALL Java_com_weloo_serialdemo_tools_SerialPort_close
   (JNIEnv *env, jobject thiz)
 {
 	jclass SerialPortClass = (*env)->GetObjectClass(env, thiz);
@@ -149,7 +149,7 @@ JNIEXPORT void JNICALL Java_com_welo_serialdemo_tools_SerialPort_close
 }
 
 
-JNIEXPORT jint JNICALL Java_com_welo_serialdemo_tools_SerialPort_setRTSNative
+JNIEXPORT jint JNICALL Java_com_weloo_serialdemo_tools_SerialPort_setRTSNative
         (JNIEnv *env, jclass thiz, jobject fdObj, jint enable) {
     // 获取文件描述符对应的类（C语言中需用 (*env)-> 调用JNI函数）
     jclass cFileDescriptor = (*env)->FindClass(env, "java/io/FileDescriptor");
@@ -203,11 +203,11 @@ JNIEXPORT jint JNICALL Java_com_welo_serialdemo_tools_SerialPort_setRTSNative
 
 
 /*
- * Class:     com_welo_serialport_lib_SerialPort
+ * Class:     com_weloo_serialport_lib_SerialPort
  * Method:    open
  * Signature: (Ljava/lang/String;II)Ljava/io/FileDescriptor;
  */
-JNIEXPORT jobject JNICALL Java_com_welo_serialport_lib_SerialPort_open
+JNIEXPORT jobject JNICALL Java_com_weloo_serialport_lib_SerialPort_open
         (JNIEnv *env, jclass thiz, jstring path, jint baudrate, jint flags)
 {
     int fd;
@@ -279,11 +279,11 @@ JNIEXPORT jobject JNICALL Java_com_welo_serialport_lib_SerialPort_open
 }
 
 /*
- * Class:     com_welo_serialport_lib_SerialPort
+ * Class:     com_weloo_serialport_lib_SerialPort
  * Method:    close
  * Signature: ()V
  */
-/*JNIEXPORT void JNICALL Java_com_welo_serialport_lib_SerialPort_close
+/*JNIEXPORT void JNICALL Java_com_weloo_serialport_lib_SerialPort_close
         (JNIEnv *env, jobject thiz)
 {
     jclass SerialPortClass = (*env)->GetObjectClass(env, thiz);
@@ -299,7 +299,7 @@ JNIEXPORT jobject JNICALL Java_com_welo_serialport_lib_SerialPort_open
     close(descriptor);
 }*/
 
-JNIEXPORT void JNICALL Java_com_welo_serialport_lib_SerialPort_close
+JNIEXPORT void JNICALL Java_com_weloo_serialport_lib_SerialPort_close
         (JNIEnv *env, jobject thiz, jobject fdObj)
 {
     jclass FileDescriptorClass = (*env)->FindClass(env, "java/io/FileDescriptor");

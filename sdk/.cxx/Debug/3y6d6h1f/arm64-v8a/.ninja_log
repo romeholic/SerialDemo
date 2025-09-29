@@ -1,4 +1,0 @@
-# ninja log v5
-1	145	7808181175492088	CMakeFiles/serial_port.dir/SerialPort.c.o	df9c8cdb769150ee
-147	373	7808181177721973	E:/Documents/GitHub/weloo-serial-port/sdk/build/intermediates/cxx/Debug/3y6d6h1f/obj/arm64-v8a/libserial_port.so	1b7d5f5ce8652a36
-1	17	0	clean	501bba97cf7faae4

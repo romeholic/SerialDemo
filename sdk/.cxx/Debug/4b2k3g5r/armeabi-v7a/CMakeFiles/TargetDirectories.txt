@@ -1,3 +1,0 @@
-E:/Documents/GitHub/SerialDemo/serial-port-sdk/.cxx/Debug/4b2k3g5r/armeabi-v7a/CMakeFiles/serial_port.dir
-E:/Documents/GitHub/SerialDemo/serial-port-sdk/.cxx/Debug/4b2k3g5r/armeabi-v7a/CMakeFiles/edit_cache.dir
-E:/Documents/GitHub/SerialDemo/serial-port-sdk/.cxx/Debug/4b2k3g5r/armeabi-v7a/CMakeFiles/rebuild_cache.dir
