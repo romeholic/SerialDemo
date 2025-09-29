@@ -14,9 +14,11 @@ public class SendingDataActivity extends SerialPortActivity {
 			0x04
 	};
 
+	private static final byte[] WAKE_PACKET = new byte[256];
+
 /*	private static final long WAKE_LOW_DELAY = 2;    // 拉低时长：2ms
 	private static final long WAKE_INTERVAL = 100;   // 唤醒后间隔：100ms*/
-
+    private static final long WAKE_DELAY_MS = 100;
     private byte[] mStandardPacket;
 	SendingThread mSendingThread;
 
@@ -75,20 +77,177 @@ public class SendingDataActivity extends SerialPortActivity {
 
 	private void buildStandardPacket() {
 		byte[] startBytes = new byte[]{0x58, 0x59, 0x52};
-		byte[] dataBytes = new byte[]{0x00,	(byte)0xFE, (byte)0x82, (byte)0x82,
-				(byte)0xFE, 0x00, (byte)0xF2, (byte)0x92,
-				(byte)0x92, (byte)0x9E, 0x00, (byte)0x92,
-				(byte)0x92, (byte)0x92, (byte)0xFE, 0x00,
-				(byte)0x1E, 0x10, 0x10, (byte)0xFE,
-				0x00, (byte)0x9E, (byte)0x92, (byte)0x92,
-				(byte)0xF2, 0x00, (byte)0xFE, (byte)0x92,
-				(byte)0x92, (byte)0xF2, 0x00, 0x00};
-		byte[] endByte = new byte[]{0x6F};
 
-		mStandardPacket = new byte[startBytes.length + dataBytes.length + endByte.length];
+		//023456
+		byte[] dataBytes = new byte[]{0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
+				(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
+				(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
+				(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
+				(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,
+				0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,0X00,
+				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
+				0X00,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00};
+
+
+		//WELOO LOGO
+/*		// 第0行（左到右32列）
+		        0X00,  // 左侧留白
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // W第0行
+				0XFF,0XFF,0XFF,0XFF,0XFF,0X00,  // E第0行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // L第0行
+				0X00,0XFF,0XFF,0XFF,0XFF,0X00,  // O第0行
+				0X00,0XFF,0XFF,0XFF,0XFF,0X00,  // O第0行
+				0X00,  // 右侧留白
+
+		// 第1行
+				0X00,
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // W第1行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // E第1行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // L第1行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第1行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第1行
+				0X00,
+
+		// 第2行
+				0X00,
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // W第2行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // E第2行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // L第2行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第2行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第2行
+				0X00,
+
+		// 第3行
+				0X00,
+				0X00,0XFF,0XFF,0XFF,0XFF,0X00,  // W第3行
+				0XFF,0XFF,0XFF,0XFF,0X00,0X00,  // E第3行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // L第3行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第3行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第3行
+				0X00,
+
+		// 第4行
+				0X00,
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // W第4行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // E第4行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // L第4行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第4行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第4行
+				0X00,
+
+		// 第5行
+				0X00,
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // W第5行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // E第5行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // L第5行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第5行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第5行
+				0X00,
+
+		// 第6行
+				0X00,
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // W第6行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // E第6行
+				0XFF,0X00,0X00,0X00,0X00,0X00,  // L第6行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第6行
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // O第6行
+				0X00,
+
+		// 第7行
+				0X00,
+				0X00,0XFF,0X00,0X00,0XFF,0X00,  // W第7行
+				0XFF,0XFF,0XFF,0XFF,0XFF,0X00,  // E第7行
+				0XFF,0XFF,0XFF,0XFF,0XFF,0X00,  // L第7行
+				0X00,0XFF,0XFF,0XFF,0XFF,0X00,  // O第7行
+				0X00,0XFF,0XFF,0XFF,0XFF,0X00,  // O第7行
+				0X00*/
+
+		byte[] welooBytes = new byte[]{
+				0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // W第0行
+				(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00, // E第0行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00, // L第0行
+				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00, // O第0行
+				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00, // O第0行
+				0X00,
+
+				0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // W第1行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00, // E第1行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00, // L第1行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // O第1行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // O第1行
+				0X00,
+
+				0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // W第2行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00, // E第2行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00, // L第2行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // O第2行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // O第2行
+				0X00,
+
+				0X00,
+				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,  // W第3行
+				(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,0X00,  // E第3行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00,  // L第3行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第3行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第3行
+				0X00,
+
+				0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // W第4行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00,  // E第4行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00,  // L第4行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第4行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第4行
+				0X00,
+
+				0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // W第5行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00,  // E第5行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00,  // L第5行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第5行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第5行
+				0X00,
+
+				0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // W第6行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00,  // E第6行
+				(byte)0XFF,0X00,0X00,0X00,0X00,0X00,  // L第6行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第6行
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // O第6行
+				0X00,
+
+				0X00,
+				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,  // W第7行
+				(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,  // E第7行
+				(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,  // L第7行
+				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,  // O第7行
+				0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,  // O第7行
+				0X00
+		};
+
+		byte[] endByte = new byte[]{(byte)0xA9};
+		byte[] welooEndByte = new byte[]{(byte)0xD3};
+
+		mStandardPacket = new byte[startBytes.length + welooBytes.length + welooEndByte.length];
+		System.arraycopy(startBytes, 0, mStandardPacket, 0, startBytes.length);
+		System.arraycopy(welooBytes, 0, mStandardPacket, startBytes.length, welooBytes.length);
+		System.arraycopy(welooEndByte, 0, mStandardPacket, startBytes.length + welooBytes.length, welooEndByte.length);
+
+/*		mStandardPacket = new byte[startBytes.length + dataBytes.length + endByte.length];
 		System.arraycopy(startBytes, 0, mStandardPacket, 0, startBytes.length);
 		System.arraycopy(dataBytes, 0, mStandardPacket, startBytes.length, dataBytes.length);
-		System.arraycopy(endByte, 0, mStandardPacket, startBytes.length + dataBytes.length, endByte.length);
+		System.arraycopy(endByte, 0, mStandardPacket, startBytes.length + dataBytes.length, endByte.length);*/
 
 		android.util.Log.d("WELO-SendingDataActivity", "buildStandardPacket succeed: （" + mStandardPacket.length + "byte）");
 	}
@@ -102,11 +261,21 @@ public class SendingDataActivity extends SerialPortActivity {
 				if (mOutputStream == null || mStandardPacket == null) {
 					return;
 				}
+
+				mOutputStream.write(WAKE_PACKET);
+				mOutputStream.flush();
+				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: send once succeed（" + WAKE_PACKET.length + "byte），content（hex）：" + bytesToHex(WAKE_PACKET));
+
+				Thread.sleep(WAKE_DELAY_MS);
+				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: wake waiting... " + WAKE_DELAY_MS + "ms");
+
 				mOutputStream.write(mStandardPacket);
 				mOutputStream.flush();
 				android.util.Log.d("WELO-SendingDataActivity", "SendingThread: send once succeed（" + mStandardPacket.length + "byte），content（hex）：" + bytesToHex(mStandardPacket));
 			} catch (IOException e) {
 				android.util.Log.e("WELO-SendingDataActivity", "SendingThread: send failed", e);
+			} catch (InterruptedException e) {
+				android.util.Log.e("WELO-SendingDataActivity", "SendingThread: send InterruptedException", e);
 			}
 			android.util.Log.d("WELO-SendingDataActivity", "SendingThread: sending thread exit");
 		}
