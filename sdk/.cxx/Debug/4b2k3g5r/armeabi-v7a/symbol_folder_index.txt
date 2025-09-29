@@ -1,0 +1,1 @@
+E:\Documents\GitHub\SerialDemo\serial-port-sdk\build\intermediates\cxx\Debug\4b2k3g5r\obj\armeabi-v7a

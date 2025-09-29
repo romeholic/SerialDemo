@@ -1,0 +1,1 @@
+E:\Documents\GitHub\weloo-serial-port\sdk\src\main\jni\CMakeLists.txt

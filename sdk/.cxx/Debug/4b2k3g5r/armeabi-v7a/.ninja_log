@@ -1,0 +1,11 @@
+# ninja log v5
+1	151	7807594428838511	CMakeFiles/serial_port.dir/SerialPort.c.o	8e7b47868ee01d4
+153	307	7807594430438389	E:/Documents/GitHub/SerialDemo/serial-port-sdk/build/intermediates/cxx/Debug/4b2k3g5r/obj/armeabi-v7a/libserial_port.so	d17eda5996faa8
+1	136	7808149478965058	CMakeFiles/serial_port.dir/SerialPort.c.o	8e7b47868ee01d4
+137	320	7808149480834921	E:/Documents/GitHub/SerialDemo/serial-port-sdk/build/intermediates/cxx/Debug/4b2k3g5r/obj/armeabi-v7a/libserial_port.so	d17eda5996faa8
+2	141	7808164261795055	CMakeFiles/serial_port.dir/SerialPort.c.o	8e7b47868ee01d4
+142	336	7808164263744206	E:/Documents/GitHub/SerialDemo/serial-port-sdk/build/intermediates/cxx/Debug/4b2k3g5r/obj/armeabi-v7a/libserial_port.so	d17eda5996faa8
+1	89	7808169313765688	CMakeFiles/serial_port.dir/SerialPort.c.o	8e7b47868ee01d4
+90	251	7808169315355686	E:/Documents/GitHub/SerialDemo/serial-port-sdk/build/intermediates/cxx/Debug/4b2k3g5r/obj/armeabi-v7a/libserial_port.so	d17eda5996faa8
+1	100	7808170197980936	CMakeFiles/serial_port.dir/SerialPort.c.o	8e7b47868ee01d4
+100	230	7808170199307337	E:/Documents/GitHub/SerialDemo/serial-port-sdk/build/intermediates/cxx/Debug/4b2k3g5r/obj/armeabi-v7a/libserial_port.so	d17eda5996faa8

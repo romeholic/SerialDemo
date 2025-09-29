@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SerialDemo"
-include(":app")
-include(":serial-port-sdk")
+rootProject.name = "weloo-serial-port"
+include(":app-demo")
+include(":sdk")
  
