@@ -174,7 +174,7 @@ public class SendingDataActivity extends SerialPortActivity {
 				0X00,0XFF,0XFF,0XFF,0XFF,0X00,  // O第7行
 				0X00*/
 
-		byte[] welooBytes = new byte[]{
+		byte[] welooBytes0 = new byte[]{
 				0X00,
 				0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00, // W第0行
 				(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00, // E第0行
@@ -240,20 +240,91 @@ public class SendingDataActivity extends SerialPortActivity {
 				0X00
 		};
 
+
+		byte[] weatherBytes2 = new byte[]{
+				// 第1行数据（16字节）：00 00 00 B6 00 00 00 00 00 00 00 6D 92 24 00 24
+				0X00, 0X00, 0X00, (byte)0XB6, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, (byte)0X6D, (byte)0X92, 0X24, 0X00, 0X24,
+				// 第2行数据（16字节）：92 92 49 00 00 92 92 00 00 00 00 00 00 00 00 00
+				(byte)0X92, (byte)0X92, 0X49, 0X00, 0X00, (byte)0X92, (byte)0X92, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+				// 第3行数据（16字节）：00 B6 00 49 00 B6 00 00 00 00 00 92 49 00 B6 00
+				0X00, (byte)0XB6, 0X00, 0X49, 0X00, (byte)0XB6, 0X00, 0X00, 0X00, 0X00, 0X00, (byte)0X92, 0X49, 0X00, (byte)0XB6, 0X00,
+				// 第4行数据（16字节）：6D 49 24 00 00 49 49 6D 24 00 00 00 00 00 00 00
+				(byte)0X6D, 0X49, 0X24, 0X00, 0X00, 0X49, 0X49, (byte)0X6D, 0X24, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+				// 第5行数据（16字节）：00 49 24 92 24 49 00 00 00 00 00 24 00 00 B6 24
+				0X00, 0X49, 0X24, (byte)0X92, 0X24, 0X49, 0X00, 0X00, 0X00, 0X00, 0X00, 0X24, 0X00, 0X00, (byte)0XB6, 0X24,
+				// 第6行数据（16字节）：6D 49 00 00 00 00 B6 B6 00 00 00 00 00 00 00 00
+				(byte)0X6D, 0X49, 0X00, 0X00, 0X00, 0X00, (byte)0XB6, (byte)0XB6, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+				// 第7行数据（16字节）：92 00 DB FF DB 24 6D 00 00 00 00 00 00 00 B6 00
+				(byte)0X92, 0X00, (byte)0XDB, (byte)0XFF, (byte)0XDB, 0X24, (byte)0X6D, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, (byte)0XB6, 0X00,
+				// 第8行数据（16字节）：6D 92 6D 6D 00 00 00 00 00 00 00 00 00 00 00 00
+				(byte)0X6D, (byte)0X92, (byte)0X6D, (byte)0X6D, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+				// 第9行数据（16字节）：6D 00 FF FF DB 00 6D 00 00 00 00 00 00 92 24 00
+				(byte)0X6D, 0X00, (byte)0XFF, (byte)0XFF, (byte)0XDB, 0X00, (byte)0X6D, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, (byte)0X92, 0X24, 0X00,
+				// 第10行数据（16字节）：24 6D 6D B6 24 00 00 00 00 00 00 00 00 00 00 00
+				0X24, (byte)0X6D, (byte)0X6D, (byte)0XB6, 0X24, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+				// 第11行数据（16字节）：00 6D 24 92 24 6D 00 00 00 00 00 24 B6 24 00 00
+				0X00, (byte)0X6D, 0X24, (byte)0X92, 0X24, (byte)0X6D, 0X00, 0X00, 0X00, 0X00, 0X00, 0X24, (byte)0XB6, 0X24, 0X00, 0X00,
+				// 第12行数据（16字节）：00 00 00 92 24 00 00 00 00 00 00 00 00 00 00 00
+				0X00, 0X00, 0X00, (byte)0X92, 0X24, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+				// 第13行数据（16字节）：00 B6 00 49 00 B6 00 00 00 00 24 DB 24 24 24 00
+				0X00, (byte)0XB6, 0X00, 0X49, 0X00, (byte)0XB6, 0X00, 0X00, 0X00, 0X00, 0X24, (byte)0XDB, 0X24, 0X24, 0X24, 0X00,
+				// 第14行数据（16字节）：00 24 24 92 24 00 00 00 00 00 00 00 00 00 00 00
+				0X00, 0X24, 0X24, (byte)0X92, 0X24, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
+				// 第15行数据（16字节）：00 00 00 B6 00 00 00 00 00 00 24 92 92 92 92 24
+				0X00, 0X00, 0X00, (byte)0XB6, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X24, (byte)0X92, (byte)0X92, (byte)0X92, (byte)0X92, 0X24,
+				// 第16行数据（16字节）：00 92 92 92 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00, (byte)0X92, (byte)0X92, (byte)0X92, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00
+		};
+
+		byte[] welooBytes = new byte[]{
+				// 第1行：00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第2行：00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第3行：00 00 00 00 00 00 00 00 00 00 00 FF 00 00 00 00
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,
+				// 第4行：00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第5行：00 FF 00 00 00 FF 00 00 00 00 00 FF 00 00 00 00
+				0X00,(byte)0XFF,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,
+				// 第6行：00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第7行：00 FF 00 FF 00 FF 00 00 FF FF 00 FF 00 00 FF 00
+				0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,
+				// 第8行：00 00 FF 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第9行：00 FF 00 FF 00 FF 00 FF 00 FF 00 FF 00 FF 00 FF
+				0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,
+				// 第10行：00 FF 00 FF 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第11行：00 00 FF 00 FF 00 00 FF FF 00 00 FF 00 FF 00 FF
+				0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,(byte)0XFF,
+				// 第12行：00 FF 00 FF 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第13行：00 00 FF 00 FF 00 00 00 FF FF 00 FF 00 00 FF 00
+				0X00,0X00,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,0X00,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,0X00,0X00,(byte)0XFF,0X00,
+				// 第14行：00 00 FF 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,(byte)0XFF,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第15行：00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
+				// 第16行：00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+				0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00
+		};
+
+
+
 		byte[] endByte = new byte[]{(byte)0xA9};
 
-		byte[] welooEndByte = new byte[]{(byte)0xAA};
+		byte[] welooEndByte0 = new byte[]{(byte)0xAA};
 
-		mStandardPacket = new byte[startBytes.length + welooBytes.length + welooEndByte.length];
+		byte[] welooEndByte = new byte[]{(byte)0x67};
+
+		byte[] weatherEndByte2 = new byte[]{(byte)0x8A};
+
+		mStandardPacket = new byte[startBytes.length + weatherBytes2.length + weatherEndByte2.length];
 		System.arraycopy(startBytes, 0, mStandardPacket, 0, startBytes.length);
-		System.arraycopy(welooBytes, 0, mStandardPacket, startBytes.length, welooBytes.length);
-		System.arraycopy(welooEndByte, 0, mStandardPacket, startBytes.length + welooBytes.length, welooEndByte.length);
-
-/*		mStandardPacket = new byte[startBytes.length + testBytes.length + endByte.length];
-		System.arraycopy(startBytes, 0, mStandardPacket, 0, startBytes.length);
-		System.arraycopy(testBytes, 0, mStandardPacket, startBytes.length, testBytes.length);
-		System.arraycopy(endByte, 0, mStandardPacket, startBytes.length + testBytes.length, endByte.length);*/
-
+		System.arraycopy(weatherBytes2, 0, mStandardPacket, startBytes.length, weatherBytes2.length);
+		System.arraycopy(weatherEndByte2, 0, mStandardPacket, startBytes.length + weatherBytes2.length, weatherEndByte2.length);
 		android.util.Log.d("WELO-SendingDataActivity", "buildStandardPacket succeed: （" + mStandardPacket.length + "byte）");
 	}
 
