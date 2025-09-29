@@ -14,7 +14,7 @@ public class SendingDataActivity extends SerialPortActivity {
 			0x04
 	};
 
-	private static final byte[] WAKE_PACKET = new byte[256];
+	private static final byte[] WAKE_PACKET = new byte[8];
 
 /*	private static final long WAKE_LOW_DELAY = 2;    // 拉低时长：2ms
 	private static final long WAKE_INTERVAL = 100;   // 唤醒后间隔：100ms*/
@@ -76,11 +76,14 @@ public class SendingDataActivity extends SerialPortActivity {
 	}
 
 	// https://www.metools.info/code/c128.html
+	// wake the sub screen: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+	// show something: 0x58 0X59 0x52 D0.....D255 Y1
+	// turn off the sub screen: 0x58 0x59 0x53 0x00 0x00 0x04
 	private void buildStandardPacket() {
 		byte[] startBytes = new byte[]{0x58, 0x59, 0x52};
 
 		//023456
-		byte[] dataBytes = new byte[]{
+		byte[] testBytes = new byte[]{
                 0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
                 0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,0X00,
                 0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,(byte)0XFF,(byte)0XFF,(byte)0XFF,(byte)0XFF,0X00,
@@ -246,10 +249,10 @@ public class SendingDataActivity extends SerialPortActivity {
 		System.arraycopy(welooBytes, 0, mStandardPacket, startBytes.length, welooBytes.length);
 		System.arraycopy(welooEndByte, 0, mStandardPacket, startBytes.length + welooBytes.length, welooEndByte.length);
 
-/*		mStandardPacket = new byte[startBytes.length + dataBytes.length + endByte.length];
+/*		mStandardPacket = new byte[startBytes.length + testBytes.length + endByte.length];
 		System.arraycopy(startBytes, 0, mStandardPacket, 0, startBytes.length);
-		System.arraycopy(dataBytes, 0, mStandardPacket, startBytes.length, dataBytes.length);
-		System.arraycopy(endByte, 0, mStandardPacket, startBytes.length + dataBytes.length, endByte.length);*/
+		System.arraycopy(testBytes, 0, mStandardPacket, startBytes.length, testBytes.length);
+		System.arraycopy(endByte, 0, mStandardPacket, startBytes.length + testBytes.length, endByte.length);*/
 
 		android.util.Log.d("WELO-SendingDataActivity", "buildStandardPacket succeed: （" + mStandardPacket.length + "byte）");
 	}
